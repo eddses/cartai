@@ -349,6 +349,83 @@
   @keyframes pulaOnca{40%{transform:translateY(-46px) rotate(-8deg)}70%{transform:translateY(0) rotate(2deg)}}
   .rugido{position:absolute;font-family:"Playfair Display",serif;font-style:italic;color:var(--mostarda);font-size:22px;pointer-events:none;animation:rugido 1.2s ease-out forwards;white-space:nowrap}
   @keyframes rugido{from{opacity:1;transform:translate(-50%,0)}to{opacity:0;transform:translate(-50%,-50px)}}
+
+  /* ================= COMO FUNCIONA ================= */
+  .como{padding-bottom:60px}
+  .etapas{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:34px;margin-top:50px;counter-reset:e;position:relative}
+  .etapas::before{content:"";position:absolute;top:110px;left:16%;right:16%;border-top:3px dashed rgba(162,35,25,.35);z-index:0;transform:scaleX(0);transform-origin:left;transition:transform 1.6s .3s cubic-bezier(.6,.1,.3,1)}
+  .etapas:has(.etapa.on)::before{transform:scaleX(1)}
+  .etapa{position:relative;z-index:1;text-align:center}
+  .etapa:nth-child(2){transition-delay:.25s}.etapa:nth-child(3){transition-delay:.5s}
+  .bolso{position:relative;height:230px;max-width:300px;margin:0 auto 22px}
+  .carta-in{position:absolute;left:9%;right:9%;top:0;height:170px;background:var(--creme-claro);border-radius:4px;box-shadow:0 10px 24px rgba(89,14,15,.15);display:grid;place-items:center;padding:12px;
+    transform:translateY(58px);transition:transform 1s cubic-bezier(.2,.9,.3,1.2)}
+  .carta-in img{max-height:130px;width:auto;object-fit:contain}
+  .carta-in .num{position:absolute;top:-14px;left:-14px;width:40px;height:40px;border-radius:50%;background:var(--mostarda);color:#3b0b0e;display:grid;place-items:center;font:italic 600 22px "Playfair Display",serif;box-shadow:0 4px 10px rgba(0,0,0,.18)}
+  .etapa.on .carta-in{transform:translateY(-6px)}
+  .etapa:nth-child(1).on .carta-in{transition-delay:.35s}.etapa:nth-child(2).on .carta-in{transition-delay:.6s}.etapa:nth-child(3).on .carta-in{transition-delay:.85s}
+  .etapa:hover .carta-in{transform:translateY(-18px) rotate(-2deg);transition-delay:0s}
+  .frente-env{position:absolute;left:0;right:0;bottom:0;height:120px;background:var(--papel);border-radius:0 0 6px 6px;
+    clip-path:polygon(0 0,50% 48%,100% 0,100% 100%,0 100%);box-shadow:inset 0 -4px 0 rgba(0,0,0,.04)}
+  .frente-env::after{content:"";position:absolute;left:0;right:0;bottom:0;height:7px;background:repeating-linear-gradient(-45deg,var(--vermelho) 0 10px,transparent 10px 15px,var(--verde) 15px 25px,transparent 25px 30px,var(--mostarda) 30px 40px,transparent 40px 45px)}
+  .etapa h3{font-size:28px;margin-bottom:8px}
+  .etapa p{max-width:30ch;margin:0 auto}
+  @media (max-width:900px){.etapas{grid-template-columns:1fr;gap:20px}.etapas::before{display:none}}
+
+  /* ================= TEXTURA DE PAPEL ================= */
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;opacity:.09;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .2 0 0 0 0 .1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .correio{box-shadow:0 1px 0 rgba(89,14,15,.06),0 10px 30px rgba(89,14,15,.08)}
+
+  /* ================= BARRA DE PROGRESSO ================= */
+  #progresso{position:fixed;top:0;left:0;right:0;height:4px;z-index:90;transform-origin:left;transform:scaleX(0);
+    background:repeating-linear-gradient(-45deg,var(--vermelho) 0 10px,#fbefdc 10px 15px,var(--verde) 15px 25px,#fbefdc 25px 30px,var(--mostarda) 30px 40px,#fbefdc 40px 45px)}
+
+  /* ================= SELO POSTAL (discreto) ================= */
+  .carimbo-postal{position:absolute;top:28px;right:6%;width:118px;color:#f7e0bd;opacity:0;transform:scale(1.25) rotate(-4deg);pointer-events:none;overflow:visible}
+  .carimbo-postal.on{animation:carimba .7s .3s cubic-bezier(.3,1.4,.5,1) forwards}
+  @keyframes carimba{to{opacity:.22;transform:scale(1) rotate(-14deg)}}
+  @media (max-width:640px){.carimbo-postal{width:78px;top:16px;right:14px}}
+
+  /* ================= MODO NOITE ================= */
+  .tema{position:fixed;right:18px;bottom:18px;z-index:85;width:50px;height:50px;border-radius:50%;border:0;cursor:pointer;
+    background:var(--creme-claro);color:var(--vinho);font-size:22px;box-shadow:0 6px 18px rgba(0,0,0,.2),0 0 0 2px rgba(162,35,25,.25);display:grid;place-items:center;overflow:hidden;transition:background .5s,transform .3s}
+  .tema:hover{transform:scale(1.08) rotate(-8deg)}
+  .tema .ico{grid-area:1/1;transition:transform .6s cubic-bezier(.3,1.4,.5,1),opacity .4s}
+  .tema .lua-ico{transform:translateY(40px) rotate(-90deg);opacity:0}
+  [data-tema="noite"] .tema .sol-ico{transform:translateY(-40px) rotate(90deg);opacity:0}
+  [data-tema="noite"] .tema .lua-ico{transform:none;opacity:1}
+  body,section,header,.correio,.provador,.pontos div,.juntos div{transition:background-color .6s ease,color .6s ease}
+
+  [data-tema="noite"]{--creme:#1d0c0e;--creme-claro:#2b1215;--papel:#3a1a1d;--tinta:#ecd9bf;--vinho:#f0cf9a;--vermelho:#e8705a}
+  [data-tema="noite"] body::after{mix-blend-mode:screen;opacity:.05}
+  [data-tema="noite"] .hero{background:radial-gradient(ellipse at 20% 30%,#33141a 0,#1d0c0e 60%)}
+  [data-tema="noite"] .hero::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.8;animation:pisca 4s ease-in-out infinite alternate;
+    background-image:radial-gradient(1.5px 1.5px at 12% 18%,#fff8e6 50%,transparent 51%),radial-gradient(1px 1px at 28% 72%,#fff8e6 50%,transparent 51%),radial-gradient(2px 2px at 42% 12%,#f0cf9a 50%,transparent 51%),radial-gradient(1px 1px at 55% 48%,#fff8e6 50%,transparent 51%),radial-gradient(1.5px 1.5px at 8% 60%,#f0cf9a 50%,transparent 51%),radial-gradient(1px 1px at 36% 38%,#fff8e6 50%,transparent 51%),radial-gradient(1.5px 1.5px at 62% 80%,#fff8e6 50%,transparent 51%),radial-gradient(1px 1px at 20% 88%,#f0cf9a 50%,transparent 51%),radial-gradient(2px 2px at 48% 88%,#fff8e6 50%,transparent 51%),radial-gradient(1px 1px at 4% 32%,#fff8e6 50%,transparent 51%)}
+  @keyframes pisca{to{opacity:.35}}
+  [data-tema="noite"] .hero .sol-bg{background:#f3e6c8;box-shadow:0 0 120px 40px rgba(243,230,200,.18),inset -40px -30px 0 rgba(200,180,140,.35)}
+  [data-tema="noite"] .hero .morro{background:#12251a}
+  [data-tema="noite"] header.fixo{background:rgba(29,12,14,.9)}
+  [data-tema="noite"] .manifesto,[data-tema="noite"] footer{background:#3b0b0e}
+  [data-tema="noite"] .manifesto,[data-tema="noite"] .manifesto h2,[data-tema="noite"] .mapa,[data-tema="noite"] .mapa .tit,
+  [data-tema="noite"] footer,[data-tema="noite"] footer .logo b,[data-tema="noite"] footer .logo span,[data-tema="noite"] .faixa,[data-tema="noite"] .socio .ini{color:#f7e0bd}
+  [data-tema="noite"] .mapa{background:#12251a}
+  [data-tema="noite"] .faixa{background:#12251a}
+  [data-tema="noite"] .valores span{background:#f7e0bd}
+  [data-tema="noite"] .mapa .listra i:nth-child(4n+2),[data-tema="noite"] footer .listra i:nth-child(4n+1){background:#f7e0bd}
+  [data-tema="noite"] .cartinha{background:linear-gradient(180deg,#1d0c0e 0,#2a1013 100%)}
+  [data-tema="noite"] .cartinha .sol-bg{background:#f3e6c8;opacity:.85}
+  [data-tema="noite"] .selo,[data-tema="noite"] .passo:nth-child(4) small{background:#590e0f;color:#f7e0bd}
+  [data-tema="noite"] .juntos div:first-child{color:#3b0b0e}
+  [data-tema="noite"] .pontos div:hover{background:#3a1a1d}
+  [data-tema="noite"] .provador{background:color-mix(in srgb,var(--fundo) 14%,#2b1215)}
+  [data-tema="noite"] .provador[data-cor="preto"] .nome-cor,[data-tema="noite"] .nome-cor{filter:brightness(1.35)}
+  [data-tema="noite"] .peca[src*="preto"]{filter:drop-shadow(0 0 30px rgba(243,230,200,.25)) drop-shadow(0 24px 30px rgba(0,0,0,.5))}
+  [data-tema="noite"] .carta-in .num{color:#3b0b0e}
+  [data-tema="noite"] .carta-in{background:#f3e3c6}
+  @media (max-width:820px){[data-tema="noite"] .hero .sol-bg{width:44vw;right:-10vw;top:-10vw;opacity:1}.tema{width:42px;height:42px;font-size:18px;right:12px;bottom:12px}}
+  [data-tema="noite"] header:not(.fixo) nav{background:rgba(29,12,14,.65);padding:8px 18px;border-radius:999px;backdrop-filter:blur(6px)}
+  [data-tema="noite"] .tema{box-shadow:0 6px 18px rgba(0,0,0,.5),0 0 0 2px rgba(240,207,154,.4)}
   /* parallax suave */
   [data-par]{will-change:transform}
 
@@ -362,10 +439,13 @@
 </head>
 <body>
 
+<div id="progresso" aria-hidden="true"></div>
+<button id="tema" class="tema" aria-label="Ativar modo noite" title="Modo noite"><span class="ico sol-ico">☀</span><span class="ico lua-ico">☾</span></button>
 <header>
   <div class="wrap">
     <a class="logo" href="#topo" aria-label="Cartaí, início"><b>Cartai<img src="img/sol-logo.webp" alt=""></b><span>Produtos Íntimos</span></a>
     <nav>
+      <a href="#como">Como funciona</a>
       <a href="#produto">O produto</a>
       <a href="#cartinha">A cartinha</a>
       <a href="#proposito">Propósito</a>
@@ -408,6 +488,34 @@
     <p>Proteção reutilizável que cabe na bolsa e tem estilo. Um jeito mais leve, acessível e sustentável de viver o período menstrual, com a cara do Brasil.</p>
   </div>
   <div class="onca-trilha"><img class="onca" id="onca" src="img/onca.webp" alt="Onça ilustrada (toque nela!)" title="Toque na onça"></div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="como" id="como">
+  <div class="wrap">
+    <div class="rev">
+      <h2 class="tit">Como funciona</h2>
+      <div class="listra"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <p class="sub">Simples como <em>receber uma carta.</em></p>
+    </div>
+    <ol class="etapas">
+      <li class="etapa rev">
+        <div class="bolso"><div class="carta-in"><img src="img/cartinha.webp" alt="A cartinha Cartaí fechada"><span class="num">1</span></div><div class="frente-env"></div></div>
+        <h3>Chega a cartinha</h3>
+        <p>O kit de estreia vem numa cartinha, com uma calcinha para o Dia e outra para a Noite.</p>
+      </li>
+      <li class="etapa rev">
+        <div class="bolso"><div class="carta-in"><img src="img/cartinha-aberta.webp" alt="A cartinha aberta com as duas calcinhas"><span class="num">2</span></div><div class="frente-env"></div></div>
+        <h3>Usa e guarda</h3>
+        <p>Dois compartimentos e interior impermeável: a cartinha cabe na bolsa e acompanha todos os seus dias.</p>
+      </li>
+      <li class="etapa rev">
+        <div class="bolso"><div class="carta-in"><img src="img/calcinhas.webp" alt="Duas calcinhas absorventes pretas"><span class="num">3</span></div><div class="frente-env"></div></div>
+        <h3>Recompra só o que precisa</h3>
+        <p>Pacote refil ou calcinha avulsa, sem precisar de nova cartinha.</p>
+      </li>
+    </ol>
+  </div>
 </section>
 
 <!-- PRODUTO -->
@@ -517,7 +625,7 @@
         <li>Comunicação que conecta e acolhe</li>
       </ul>
       <div class="paleta">
-        <div style="background:var(--vinho)">vinho</div>
+        <div style="background:#590e0f">vinho</div>
         <div style="background:var(--vermelho)">urucum</div>
         <div style="background:var(--mostarda-esc)">sol</div>
         <div style="background:var(--verde)">mata</div>
@@ -548,6 +656,15 @@
 </section>
 
 <footer>
+  <svg class="carimbo-postal" viewBox="0 0 200 200" aria-hidden="true">
+    <defs><path id="circ" d="M100,100 m-70,0 a70,70 0 1,1 140,0 a70,70 0 1,1 -140,0"/></defs>
+    <circle cx="100" cy="100" r="88" fill="none" stroke="currentColor" stroke-width="3"/>
+    <circle cx="100" cy="100" r="52" fill="none" stroke="currentColor" stroke-width="2"/>
+    <text font-family="Inter,sans-serif" font-size="17" font-weight="600" letter-spacing="5" fill="currentColor"><textPath href="#circ">CARTAÍ ✦ BRASIL ✦ TÁ AÍ ✦ CARTAÍ ✦</textPath></text>
+    <text x="100" y="98" text-anchor="middle" font-family="Playfair Display,serif" font-style="italic" font-size="26" fill="currentColor">Cartaí</text>
+    <text x="100" y="122" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" letter-spacing="3" fill="currentColor">CORREIO</text>
+    <path d="M190 70 q15 -8 30 0 t30 0 t30 0 M190 100 q15 -8 30 0 t30 0 t30 0 M190 130 q15 -8 30 0 t30 0 t30 0" fill="none" stroke="currentColor" stroke-width="3" transform="translate(-10,0)"/>
+  </svg>
   <div class="logo"><b>Cartai<img src="img/sol-logo.webp" alt=""></b><span>Produtos Íntimos</span></div>
   <div class="listra centro"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
   <p class="slogan escrita">Tá aí, Cartaí.</p>
@@ -630,6 +747,25 @@
     const sec=onca.closest('section'),rs=sec.getBoundingClientRect(),ro=onca.getBoundingClientRect();r.style.left=(ro.left-rs.left+ro.width/2)+'px';r.style.top=(ro.top-rs.top-20)+'px';sec.appendChild(r);setTimeout(()=>r.remove(),1300);
   });
   onca.addEventListener('animationend',e=>{if(e.animationName==='pulaOnca')onca.classList.remove('pula')});
+
+  // ---------- barra de progresso ----------
+  const prog=document.getElementById('progresso');
+  function progresso(){const h=document.documentElement.scrollHeight-innerHeight;prog.style.transform=`scaleX(${h>0?scrollY/h:0})`}
+  addEventListener('scroll',()=>requestAnimationFrame(progresso),{passive:true});progresso();
+
+  // ---------- selo postal ----------
+  io.observe(document.querySelector('.carimbo-postal'));
+
+  // ---------- modo noite ----------
+  const btTema=document.getElementById('tema'), raiz=document.documentElement;
+  function aplicaTema(t){
+    if(t==='noite')raiz.dataset.tema='noite';else delete raiz.dataset.tema;
+    btTema.setAttribute('aria-label',t==='noite'?'Ativar modo dia':'Ativar modo noite');
+    btTema.title=t==='noite'?'Modo dia':'Modo noite';
+    document.querySelector('meta[name=theme-color]').content=t==='noite'?'#1d0c0e':'#590e0f';
+  }
+  aplicaTema(localStorage.getItem('cartai-tema')||'dia');
+  btTema.addEventListener('click',()=>{const t=raiz.dataset.tema==='noite'?'dia':'noite';localStorage.setItem('cartai-tema',t);aplicaTema(t)});
 </script>
 
 <!-- Contador de acessos (GoatCounter). Troque "cartai" pelo código da sua conta, se for diferente. -->
