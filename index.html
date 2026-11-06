@@ -302,6 +302,53 @@
 
   .mapa .listra i:nth-child(4n+2){background:var(--creme)}
   footer .listra i:nth-child(4n+1){background:var(--creme)}
+
+  /* ================= INTERATIVOS ================= */
+  /* provador de cores */
+  .provador{display:grid;grid-template-columns:1.15fr 1fr;gap:48px;align-items:center;margin-top:80px;padding:40px;border-radius:10px;background:var(--fundo);transition:background .6s ease,opacity .8s,transform .8s}
+  .palco{position:relative;aspect-ratio:1.25;display:grid;place-items:center}
+  .palco .circulo{position:absolute;width:78%;aspect-ratio:1;border-radius:50%;background:var(--cor);opacity:.14;transition:background .6s,transform .6s}
+  .provador.troca .circulo{transform:scale(1.08)}
+  .peca{position:relative;width:88%;filter:drop-shadow(0 24px 30px rgba(40,15,10,.28));transition:transform .45s cubic-bezier(.3,1.4,.5,1),opacity .25s}
+  .peca.sai{opacity:0;transform:translateY(16px) rotate(-6deg) scale(.92)}
+  .peca.entra{animation:entraPeca .55s cubic-bezier(.3,1.5,.5,1)}
+  @keyframes entraPeca{from{opacity:0;transform:translateY(-14px) rotate(5deg) scale(.94)}}
+  .selo{position:absolute;top:6%;right:4%;background:var(--vinho);color:var(--creme);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 12px;border-radius:3px;transform:rotate(6deg);box-shadow:0 6px 14px rgba(89,14,15,.25)}
+  .selo.pop{animation:carimbo2 .5s cubic-bezier(.3,1.8,.5,1)}
+  @keyframes carimbo2{from{transform:scale(1.8) rotate(-10deg);opacity:0}}
+  .eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--vermelho)}
+  .nome-cor{font-size:clamp(44px,5vw,64px);margin:6px 0 10px;color:var(--cor);transition:color .5s}
+  .provador[data-cor="preto"] .nome-cor{color:var(--vinho)}
+  .desc-cor{font-size:17px;min-height:3.2em}
+  .amostras{display:flex;flex-wrap:wrap;gap:12px;margin:22px 0 18px}
+  .amostra{display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:0;cursor:pointer;font:500 13px Inter,sans-serif;color:var(--tinta);padding:4px}
+  .amostra i{width:46px;height:46px;border-radius:50%;box-shadow:0 0 0 3px var(--creme-claro),0 0 0 4px rgba(89,14,15,.25),0 6px 12px rgba(0,0,0,.18);transition:transform .3s cubic-bezier(.3,1.8,.5,1),box-shadow .3s}
+  .amostra:hover i{transform:translateY(-4px)}
+  .amostra.ativa i{transform:scale(1.15);box-shadow:0 0 0 3px var(--creme-claro),0 0 0 6px var(--vinho),0 8px 16px rgba(0,0,0,.25)}
+  .amostra.ativa span{font-weight:700;color:var(--vinho)}
+  .amostra:focus-visible{outline:2px dashed var(--vinho);outline-offset:4px;border-radius:8px}
+  .nota{font-size:14px;opacity:.75;font-style:italic}
+  @media (max-width:480px){.amostras{gap:4px;flex-wrap:nowrap}.amostra i{width:38px;height:38px}.amostra{font-size:12px}}
+  @media (max-width:900px){.provador{grid-template-columns:1fr;padding:28px 20px;gap:10px;text-align:center}.amostras{justify-content:center}}
+
+  /* abrir a cartinha */
+  .abre{display:flex;flex-direction:column;align-items:center;gap:14px}
+  .carta-3d{position:relative;width:100%;aspect-ratio:800/533;border:0;background:none;cursor:pointer;perspective:1200px;animation:respira 6s 1s ease-in-out infinite}
+  .carta-3d img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 30px 40px rgba(60,20,10,.3));backface-visibility:hidden;transition:transform .9s cubic-bezier(.5,.1,.2,1),opacity .5s}
+  .carta-3d .aberta-img{transform:rotateY(180deg) scale(.9);opacity:0}
+  .carta-3d.aberta .fechada{transform:rotateY(-180deg) scale(.9);opacity:0}
+  .carta-3d.aberta .aberta-img{transform:none;opacity:1}
+  .carta-3d:hover .fechada{transform:rotate(-3deg) scale(1.03)}
+  .carta-3d:focus-visible{outline:2px dashed var(--vinho);outline-offset:6px}
+  .dica{font-size:14px;font-weight:600;color:var(--vinho);background:var(--creme-claro);padding:8px 16px;border-radius:999px;box-shadow:0 4px 12px rgba(89,14,15,.12);animation:pulo2 2s ease-in-out infinite}
+  @keyframes pulo2{50%{transform:translateY(-4px)}}
+
+  /* onça: toque para ela pular */
+  .onca{cursor:pointer}
+  .onca.pula{animation:pulaOnca .7s cubic-bezier(.3,1.3,.5,1)!important}
+  @keyframes pulaOnca{40%{transform:translateY(-46px) rotate(-8deg)}70%{transform:translateY(0) rotate(2deg)}}
+  .rugido{position:absolute;font-family:"Playfair Display",serif;font-style:italic;color:var(--mostarda);font-size:22px;pointer-events:none;animation:rugido 1.2s ease-out forwards;white-space:nowrap}
+  @keyframes rugido{from{opacity:1;transform:translate(-50%,0)}to{opacity:0;transform:translate(-50%,-50px)}}
   /* parallax suave */
   [data-par]{will-change:transform}
 
@@ -360,7 +407,7 @@
     <h2>Cartinha para<br>quem escolhe<br><em>cuidar de si.</em></h2>
     <p>Proteção reutilizável que cabe na bolsa e tem estilo. Um jeito mais leve, acessível e sustentável de viver o período menstrual, com a cara do Brasil.</p>
   </div>
-  <div class="onca-trilha"><img class="onca" src="img/onca.webp" alt=""></div>
+  <div class="onca-trilha"><img class="onca" id="onca" src="img/onca.webp" alt="Onça ilustrada (toque nela!)" title="Toque na onça"></div>
 </section>
 
 <!-- PRODUTO -->
@@ -377,9 +424,25 @@
       <div class="passo correio rev"><small>Nossa calcinha</small><h3>Básica e discreta</h3><p>Na cor preta, com marca discreta no cós.</p></div>
       <div class="passo correio rev"><small>Recompra</small><h3>Refil ou avulsa</h3><p>Pacote refil ou calcinha avulsa, sem precisar de nova cartinha.</p></div>
     </div>
-    <div class="vitrine">
-      <img class="rev" src="img/calcinha.webp" alt="Calcinha absorvente Cartaí, preta, com a marca no cós">
-      <img class="rev" src="img/cores.webp" alt="Calcinha básica preta e possíveis cores futuras">
+    <div class="provador rev" id="provador" style="--cor:#2a2a2a;--fundo:#e9dcc8">
+      <div class="palco">
+        <div class="circulo"></div>
+        <img class="peca" id="peca" src="img/calcinha-preto.webp" alt="Calcinha absorvente Cartaí na cor preta">
+        <span class="selo" id="selo">lançamento</span>
+      </div>
+      <div class="painel">
+        <p class="eyebrow">Provador de cores</p>
+        <h3 class="nome-cor" id="nomeCor">Preto</h3>
+        <p class="desc-cor" id="descCor">A básica de lançamento: discreta, com a marca no cós e combina com tudo.</p>
+        <div class="amostras" role="radiogroup" aria-label="Escolha uma cor">
+          <button role="radio" aria-checked="true" class="amostra ativa" data-cor="preto" data-hex="#1e1e1e" data-fundo="#e9dcc8" data-nome="Preto" data-selo="lançamento" data-desc="A básica de lançamento: discreta, com a marca no cós e combina com tudo."><i style="background:#1e1e1e"></i><span>Preto</span></button>
+          <button role="radio" aria-checked="false" class="amostra" data-cor="vinho" data-hex="#701e24" data-fundo="#f1d3cf" data-nome="Vinho" data-selo="em breve" data-desc="A cor da nossa cartinha, para quem gosta de combinar."><i style="background:#701e24"></i><span>Vinho</span></button>
+          <button role="radio" aria-checked="false" class="amostra" data-cor="urucum" data-hex="#9e3a24" data-fundo="#f5d2bf" data-nome="Urucum" data-selo="em breve" data-desc="Vermelho de terra, quente como o Brasil."><i style="background:#9e3a24"></i><span>Urucum</span></button>
+          <button role="radio" aria-checked="false" class="amostra" data-cor="sol" data-hex="#ce8a28" data-fundo="#f8e2b0" data-nome="Sol" data-selo="em breve" data-desc="Amarelo de fim de tarde, para dias mais leves."><i style="background:#ce8a28"></i><span>Sol</span></button>
+          <button role="radio" aria-checked="false" class="amostra" data-cor="mata" data-hex="#224a32" data-fundo="#d3e0cf" data-nome="Mata" data-selo="em breve" data-desc="Verde de palmeira, fresco e cheio de vida."><i style="background:#224a32"></i><span>Mata</span></button>
+        </div>
+        <p class="nota">O lançamento é no preto. As outras cores são ideias para o futuro. Qual você escolheria?</p>
+      </div>
     </div>
   </div>
 </section>
@@ -400,7 +463,13 @@
       </ul>
       <p class="estilo">Por fora, o cuidado tem <em>estilo.</em></p>
     </div>
-    <img class="aberta rev" src="img/cartinha-aberta.webp" alt="A cartinha aberta, com duas calcinhas pretas nos compartimentos">
+    <div class="abre rev">
+      <button class="carta-3d" id="carta3d" aria-pressed="false" aria-label="Abrir a cartinha">
+        <img class="fechada" src="img/cartinha.webp" alt="A cartinha fechada">
+        <img class="aberta-img" src="img/cartinha-aberta.webp" alt="A cartinha aberta, com duas calcinhas pretas nos compartimentos">
+      </button>
+      <span class="dica" id="dica">✉ toque para abrir a cartinha</span>
+    </div>
   </div>
 </section>
 
@@ -514,6 +583,53 @@
     });
     hero.addEventListener('mouseleave',()=>p3.style.transform='');
   }
+
+  // ---------- provador de cores ----------
+  const prov=document.getElementById('provador'), peca=document.getElementById('peca'),
+        nome=document.getElementById('nomeCor'), desc=document.getElementById('descCor'), selo=document.getElementById('selo');
+  const amostras=[...prov.querySelectorAll('.amostra')];
+  amostras.forEach(b=>{const i=new Image();i.src=`img/calcinha-${b.dataset.cor}.webp`});
+  let auto=null, idx=0;
+  function escolhe(b){
+    if(b.classList.contains('ativa'))return;
+    amostras.forEach(x=>{x.classList.toggle('ativa',x===b);x.setAttribute('aria-checked',x===b)});
+    idx=amostras.indexOf(b);
+    prov.style.setProperty('--cor',b.dataset.hex);prov.style.setProperty('--fundo',b.dataset.fundo);prov.dataset.cor=b.dataset.cor;
+    prov.classList.add('troca');peca.classList.add('sai');
+    setTimeout(()=>{
+      peca.src=`img/calcinha-${b.dataset.cor}.webp`;peca.alt=`Calcinha absorvente Cartaí na cor ${b.dataset.nome.toLowerCase()}`;
+      peca.classList.remove('sai');peca.classList.remove('entra');void peca.offsetWidth;peca.classList.add('entra');
+      nome.textContent=b.dataset.nome;desc.textContent=b.dataset.desc;
+      selo.textContent=b.dataset.selo;selo.classList.remove('pop');void selo.offsetWidth;selo.classList.add('pop');
+      prov.classList.remove('troca');
+    },220);
+  }
+  amostras.forEach(b=>b.addEventListener('click',()=>{clearInterval(auto);auto=null;escolhe(b)}));
+  prov.addEventListener('keydown',e=>{
+    const d={ArrowRight:1,ArrowDown:1,ArrowLeft:-1,ArrowUp:-1}[e.key];
+    if(d){e.preventDefault();clearInterval(auto);const b=amostras[(idx+d+amostras.length)%amostras.length];escolhe(b);b.focus()}
+  });
+  // passeia sozinho pelas cores até a pessoa tocar
+  if(!reduz) new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){o.disconnect();
+    auto=setInterval(()=>escolhe(amostras[(idx+1)%amostras.length]),2600)}},{threshold:.5}).observe(prov);
+
+  // ---------- abrir a cartinha ----------
+  const carta=document.getElementById('carta3d'), dica=document.getElementById('dica');
+  carta.addEventListener('click',()=>{
+    const ab=carta.classList.toggle('aberta');
+    carta.setAttribute('aria-pressed',ab);carta.setAttribute('aria-label',ab?'Fechar a cartinha':'Abrir a cartinha');
+    dica.textContent=ab?'✉ toque para fechar':'✉ toque para abrir a cartinha';
+  });
+
+  // ---------- onça ----------
+  const onca=document.getElementById('onca');
+  const falas=['Tá aí, Cartaí!','grrr ☀','oi! ✉'];let nf=0;
+  onca.addEventListener('click',e=>{
+    onca.classList.remove('pula');void onca.offsetWidth;onca.classList.add('pula');
+    const r=document.createElement('span');r.className='rugido';r.textContent=falas[nf++%falas.length];
+    const sec=onca.closest('section'),rs=sec.getBoundingClientRect(),ro=onca.getBoundingClientRect();r.style.left=(ro.left-rs.left+ro.width/2)+'px';r.style.top=(ro.top-rs.top-20)+'px';sec.appendChild(r);setTimeout(()=>r.remove(),1300);
+  });
+  onca.addEventListener('animationend',e=>{if(e.animationName==='pulaOnca')onca.classList.remove('pula')});
 </script>
 
 <!-- Contador de acessos (GoatCounter). Troque "cartai" pelo código da sua conta, se for diferente. -->
